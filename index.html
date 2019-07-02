@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <style>
+        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"> 
+        <link rel="manifest" href="/static/manifest.json">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+    </head>
+    <body style="-webkit-overflow-scrolling: touch;">
+        
+        <script type="text/javascript">
+            function preventDefault(e){
+                if(window.blockWeirdStuff) {
+                //if(["canvas"].includes(e.target.tagName.toLowerCase())) {
+                    e.preventDefault();
+                //}
+                }
+            }
+
+
+            document.body.addEventListener('touchmove', preventDefault, { passive: false });
+        </script>
+        <script src="dist/main.js"></script>
+    </body>
+</html>

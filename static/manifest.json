@@ -1,0 +1,21 @@
+{ 
+
+    "name": "Color Anything", 
+  
+    "short_name": "Color Anything", 
+  
+    "start_url": "../index.html", 
+  
+    "display": "standalone", 
+  
+    "icons": [{ 
+  
+      "src": "./images/logo-pwa.png", 
+  
+      "sizes": "294x294", 
+  
+      "type": "image/png" 
+  
+    }] 
+  
+  } 

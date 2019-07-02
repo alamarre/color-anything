@@ -1,0 +1,22 @@
+<html>
+    <head>
+        
+    </head>
+    <body style="overflow: hidden;">
+        <div id="main" style="display: grid;">
+            <span id="drawing-area" >
+                <img draggable="false" style="display: block;
+                margin-left: auto;
+                margin-right: auto;" id="main-image" src="http://www.cartonionline.com/en/coloring_page/daniel_tiger/daniel_tiger.jpg" />
+                <canvas style="z-index: 1; position: absolute; top: 0; left: 0" id="canvas">
+
+                </canvas>
+            </span>
+            <span style="display: grid; width: 200px; position: absolute; right: 0" id="color-chooser">
+                <div style="background: rgba(255, 0, 0, 1.0)">Red</div>
+                <div style="background: rgba(0, 0, 255, 1.0)"">Blue</div>
+            </span>
+        </div>
+        <script src="app.js"></script>
+    </body>
+</html>
