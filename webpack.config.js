@@ -1,9 +1,18 @@
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+const WebpackPwaManifest = require("webpack-pwa-manifest");
+
 module.exports = {
     mode: "development",
 
+    
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
 
+    
+    output: {
+        filename: '[name].js?t=' + new Date().getTime(),
+    },
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".ts", ".tsx", ".js", ".jsx"]
@@ -52,6 +61,12 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+        "title": "Color Anything",
+        template: "index.html",
+        }),
+    ],
 
     // When importing a module whose path matches one of the following, just
     // assume a corresponding global variable exists and use that instead.

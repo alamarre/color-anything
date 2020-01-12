@@ -29,7 +29,7 @@ export default class PageChooser extends React.Component<CategoryProps, any> {
             const linkTo = `/color/${this.props.category}?source=${encodeURIComponent(p.source)}`;
             return <Link to={linkTo} key={p.source}><img style={{maxWidth: "300px", height: "200px"}} key={p.source} src={p.source} /></Link>;
         })
-        return <div style={{overflowY: "scroll"}}>
+        return <div style={{overflowY: "scroll", height: window.innerHeight}}>
             <BackBar backLocation="/" />
         {pictures}
         </div>;

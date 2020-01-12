@@ -1,18 +1,45 @@
 import * as React from "react";
 import BackBar from "./BackBar";
+
+function getQueryStringValue(key) {
+  if(!document.location.search) {
+    return null;
+  }
+  const start = document.location.search.indexOf(key);
+  if(start < 0) {
+    return null;
+  }
+  const mid = document.location.search.indexOf("=", start+1) +1;
+  const end = document.location.search.indexOf("&", start+1);
+  if(end > 0) {
+    return document.location.search.substring(mid, end);
+  }
+  return document.location.search.substring(mid);
+}
+
+const lineWidth = getQueryStringValue("width")  || 30;
 const colors = [
-    "rgba(255, 0, 0, 1.0)", 
-    "rgba(0, 255, 0, 1.0)", 
-    "rgba(0, 0, 255, 1.0)",
+    "rgba(255, 0, 0, 1.0)", // red
+    "rgba(58, 166, 85, 1)", // green
+    "rgba(0, 0, 255, 1.0)", // blue
 
-    "rgba(175, 89, 62, 1.0)", 
-    "rgba(251, 232, 112, 1.0)", 
-    "rgba(255, 136, 51, 1.0)",
+    "rgba(175, 89, 62, 1.0)", // brown
+    "rgba(251, 232, 112, 1.0)", // yellow
+    "rgba(255, 136, 51, 1.0)", // orange
 
-    "rgba(101, 45, 193, 1.0)",
+    "rgba(101, 45, 193, 1.0)", // purple
 
-    "rgba(0, 0, 0, 1.0)",
-    "rgba(255, 255, 255, 1.0)",
+    "rgba(0, 0, 0, 1.0)", // black
+    "rgba(255, 255, 255, 1.0)", // white
+
+    "rgba(210, 77, 154, 1.0)", // pink
+
+    "rgba(0, 255, 0, 1.0)", // green
+
+    "rgba(46, 180, 230, 1)", // light blue
+    "rgba(21, 96, 189, 1)", // dark blue
+
+    
 ];
 const transparency = "1.0";
 
@@ -99,7 +126,7 @@ export default class ColoringPage extends React.Component<PageProps, any> {
         const ctx = canvas.getContext("2d");
         ctx.beginPath();
         ctx.lineCap = "round";
-        ctx.lineWidth = 30;
+        ctx.lineWidth = lineWidth;
         ctx.moveTo(this.startingX, this.startingY);
         ctx.strokeStyle = this.state.currentColor.replace("1.0", transparency);
         //ctx.moveTo(0, 0);
@@ -123,7 +150,7 @@ export default class ColoringPage extends React.Component<PageProps, any> {
     render() {
         const backLocation = `/category/${this.props.category}`;
         const maxHeight = window.innerHeight - 100;
-        const maxWidth = window.innerWidth - 300;
+        const maxWidth = window.innerWidth - 250;
         
         const colorElements = colors.map(c => {
             let style : any = {display: "inline-block", margin: "10px", background: c, width: "75px", height: "75px"};
@@ -134,16 +161,18 @@ export default class ColoringPage extends React.Component<PageProps, any> {
             }
             return <span key={c} onClick={(event) => { this.setState({currentColor: c})}} style={style}>&nbsp;</span>
         })
-        const colorChooser = <div style={{width: "250px", display: "table-cell", overflowY: "scroll", verticalAlign: "top"}} id="color-chooser">
+        const colorChooser = <div style={{width: "250px", margin: "0", display: "table-cell",  verticalAlign: "top"}} id="color-chooser">
+          <div style={{margin: "0", height: maxHeight, overflowY: "scroll",}}>
             {colorElements}
+          </div>
         </div>;
-        return <div ref="root" style={{overflow:"hidden"}}>
+        return <div ref="root" style={{overflowY: "visible", overflowX: "hidden", height: window.innerHeight}}>
             <BackBar backLocation={backLocation} />
             <div style={{display: "table", width: window.innerWidth + "px"}}>
                 <div style={{display: "table-cell"}}>
                     <canvas ref="canvas" width={maxWidth+"px"} height={maxHeight+"px"}
                     onMouseDown={this.moveStart} onMouseLeave={this.moveEnd} onMouseMove={this.moving} onMouseUp={this.moveEnd} onTouchStart={this.moveStart} onTouchEnd={this.moveEnd} onTouchMove={this.moving}
-                    style={{position: "absolute", mixBlendMode: "multiply", top: "50px", left: "0px", zIndex: 1}} />
+                    style={{position: "absolute", mixBlendMode: "multiply", top: "50px", left: "0px", zIndex: 1, margin: "0"}} />
                     <img onTouchStart={(event) => event.preventDefault()}  draggable={false} style={{display: "block", zIndex: 2, mixBlendMode: "multiply", maxHeight: maxHeight+"px", maxWidth: maxWidth+"px", marginLeft: "auto", marginRight: "auto"}} src={this.props.imageSource}
                     />
                 </div>

@@ -6,21 +6,37 @@
         <link rel="manifest" href="/static/manifest.json">
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
         <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     </head>
-    <body style="-webkit-overflow-scrolling: touch;">
+    <body style="-webkit-overflow-scrolling: touch; padding: 0; margin:0; overflow: hidden;">
         
         <script type="text/javascript">
             function preventDefault(e){
                 if(window.blockWeirdStuff) {
-                //if(["canvas"].includes(e.target.tagName.toLowerCase())) {
+                if(["canvas"].includes(e.target.tagName.toLowerCase())) {
                     e.preventDefault();
-                //}
                 }
+                }
+
             }
+
+        document.addEventListener('gesturestart', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+        document.addEventListener('touchmove', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
 
 
             document.body.addEventListener('touchmove', preventDefault, { passive: false });
         </script>
-        <script src="dist/main.js"></script>
+        <style>
+           body {
+                touch-action: none;
+            }
+        </style>
     </body>
 </html>
